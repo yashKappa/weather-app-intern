@@ -90,7 +90,7 @@ const WeatherApp = () => {
               <div className="card-body text-center">
                 <h5 className="card-title">{currentWeather.name}</h5>
                 <img
-                  src={`/weather-icons/${iconMap[currentWeather.weather[0].icon]}`}
+                  src={`${process.env.PUBLIC_URL}/weather-icons/${iconMap[currentWeather.weather[0].icon]}`}
                   alt="weather icon"
                   className="mb-3 floating-icon"
                 />
@@ -121,7 +121,7 @@ const WeatherApp = () => {
                   <h5 className="card-title">{new Date(day.dt_txt).toLocaleDateString()}</h5>
                   <div className="">
                     <img
-                      src={`/weather-icons/${iconMap[day.weather[0].icon]}`}
+                      src={`${process.env.PUBLIC_URL}/weather-icons/${iconMap[day.weather[0].icon]}`}
                       alt="icon"
                       className="mb-3 floating-icon"
                     />
