@@ -6,29 +6,11 @@ const WeatherApp = () => {
   const [city, setCity] = useState("");
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const apiKey = "31ea064be1b494428d44e68083399fa0";
 
-  const iconMap = {
-    "01d": "clear.png",
-    "01n": "clear.png",
-    "02d": "clouds.png",
-    "02n": "clouds.png",
-    "03d": "clouds.png",
-    "03n": "clouds.png",
-    "04d": "clouds.png",
-    "04n": "clouds.png",
-    "09d": "rain.png",
-    "09n": "rain.png",
-    "10d": "rain.png",
-    "10n": "rain.png",
-    "11d": "storm.png",
-    "11n": "storm.png",
-    "13d": "snow.png",
-    "13n": "snow.png",
-    "50d": "fog.png",
-    "50n": "fog.png",
-  };
+  // Base URL for OpenWeather icons
+  const iconBaseURL = "http://openweathermap.org/img/wn/";
 
   const getWeather = async () => {
     setLoading(true);
@@ -51,13 +33,13 @@ const WeatherApp = () => {
       console.error("Error fetching weather:", error);
       alert("City not found or API error");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
     <div className="container my-4">
-      <h1 className="text-center mb-4">🌤️ Weather Forecast</h1>
+      <h1 className="text-center mb-4">🌤️ <span>Weather Forecast</span></h1>
 
       <div className="input-group mb-4">
         <input
@@ -90,7 +72,7 @@ const WeatherApp = () => {
               <div className="card-body text-center">
                 <h5 className="card-title">{currentWeather.name}</h5>
                 <img
-                  src={`${process.env.PUBLIC_URL}/weather-icons/${iconMap[currentWeather.weather[0].icon]}`}
+                  src={`${iconBaseURL}${currentWeather.weather[0].icon}@2x.png`}
                   alt="weather icon"
                   className="mb-3 floating-icon"
                 />
@@ -102,10 +84,10 @@ const WeatherApp = () => {
                   <strong>Condition:</strong> {currentWeather.weather[0].description}
                 </p>
                 <p className="card-text">
-                  <strong>Humidity:</strong> {currentWeather.main.humidity}% <i class="fa-solid fa-water"></i>
+                  <strong>Humidity:</strong> {currentWeather.main.humidity}% <i className="fa-solid fa-water"></i>
                 </p>
                 <p className="card-text">
-                  <strong>Wind Speed:</strong> {currentWeather.wind.speed} m/s <i class="fa-solid fa-wind"></i>
+                  <strong>Wind Speed:</strong> {currentWeather.wind.speed} m/s <i className="fa-solid fa-wind"></i>
                 </p>
               </div>
             </div>
@@ -121,21 +103,22 @@ const WeatherApp = () => {
                   <h5 className="card-title">{new Date(day.dt_txt).toLocaleDateString()}</h5>
                   <div className="">
                     <img
-                      src={`${process.env.PUBLIC_URL}/weather-icons/${iconMap[day.weather[0].icon]}`}
+                      src={`${iconBaseURL}${day.weather[0].icon}@2x.png`}
                       alt="icon"
                       className="mb-3 floating-icon"
                     />
                   </div>
                   <p className="card-text">
-                    <strong><i class="fa-solid fa-temperature-three-quarters"></i> {day.main.temp}°C</strong>
+                    <strong><i className="fa-solid fa-temperature-three-quarters"></i> {day.main.temp}°C</strong>
                   </p>
                   <p>
-                    <strong>Conditions: </strong>{day.weather[0].description}</p>
-                  <p className="card-text">
-                    <strong>Humidity:</strong> {day.main.humidity}% <i class="fa-solid fa-water"></i>
+                    <strong>Conditions: </strong>{day.weather[0].description}
                   </p>
                   <p className="card-text">
-                    <strong>Wind Speed:</strong> {day.wind.speed} m/s <i class="fa-solid fa-wind"></i>
+                    <strong>Humidity:</strong> {day.main.humidity}% <i className="fa-solid fa-water"></i>
+                  </p>
+                  <p className="card-text">
+                    <strong>Wind Speed:</strong> {day.wind.speed} m/s <i className="fa-solid fa-wind"></i>
                   </p>
                 </div>
               </div>
